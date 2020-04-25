@@ -1,0 +1,126 @@
+﻿
+
+<!DOCTYPE html>
+@{
+    ViewBag.Title = "Tìm số";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="/signalr/hubs" type="text/javascript"></script>
+    <script src="~/Scripts/signalR.timso.js"></script>
+}
+
+<div class="container game-container">
+    <div id="lobby">
+        <div id="waitingForOpponent" style="display:none"><strong>Chờ người chơi khác!</strong></div>
+        <div class="row">
+            <div class="col-md-9">
+                <h3>Danh sách người chơi</h3>
+                <div id="listUser" class="row"></div>
+            </div>
+            <div class="col-md-3">
+                <h3>Lời mời</h3>
+                <div id="listInvitation" class="row">
+                </div>
+            </div>
+        </div>
+        <!--<div id="findOpponent">
+            <input type="button" class="btn btn-default findGame" id="findGame" value="Tìm người chơi ngẫu nhiên" />
+        </div>-->
+    </div>
+
+    <div id="mainGame" class="row hidden">
+
+        <div id="game" class="col-sm-12">
+
+        </div>
+        <div class="hidden-xs col-sm-12">
+            <div class="row">
+                <div class="col-sm-1">Bạn</div>
+                <div class="progress" id="progressMe">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-1">Đối thủ</div>
+                <div class="progress" id="progressOpponent">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="navbar-default navbar-fixed-bottom">
+            <div class="container">
+                <div class="pull-left">
+                    <span id="gameInformation"></span>
+                    <br />
+                    <span id="simbolo"></span>
+                </div>
+                <div id="currentNumber" class="center-block"></div>
+            </div>
+        </footer>
+    </div>
+    <div id="serverInformation">
+
+        Tổng số lượng  người chơi:  <span id="amountOfClients">0</span><br />
+        Tổng số lượng game: <span id="amountOfGames">0</span><br />
+        Số game đã chơi: <span id="totalAmountOfGames">0</span><br />
+        <br />
+        <br />
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Lời mời</h4>
+            </div>
+            <div class="modal-body" id="inviteMessage">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="cancelInviteBtn" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="acceptInviteBtn" data-dismiss="modal">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="notifiModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Thông báo</h4>
+            </div>
+            <div class="modal-body" id="notifiMessage">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="gameOverModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Kết thúc</h4>
+            </div>
+            <div class="modal-body" id="gameOverMessage">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<audio id="sound" src="/sound/Beep.mp3"></audio>
+

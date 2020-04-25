@@ -1,0 +1,24 @@
+﻿@model GameVui.Server.Models.ApplicationUser
+<div>
+    @using (Html.BeginForm("ChangeAvatar", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <span class="profile-picture">
+            <img id="thumbnailImg" class="editable img-responsive" alt="" src="@Model.Avatar" />
+        </span>
+
+        <div class="space-4"></div>
+
+        @*<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+            <div class="inline position-relative">
+                <a href="#" class="user-title-label">
+                    <i class="ace-icon fa fa-circle light-green"></i>
+                    &nbsp;
+                    <span class="white">Alex M. Doe</span>
+                </a>
+            </div>
+        </div>*@
+
+    <input type="file" name="file" id="photoinput" accept="image/*" />
+         <input type="submit" class="btn btn-primary" value="Thay đổi ảnh" />
+    }
+</div>

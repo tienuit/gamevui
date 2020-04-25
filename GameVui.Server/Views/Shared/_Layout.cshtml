@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CCG Game Studio - Tìm số">
+    <meta property="og:description" content="CCG Game Studio - Tìm số">
+    <meta property="og:title" content="@ViewBag.Title">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@WebPageContext.Current.Page.Context.Request.Url.ToString()" />
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:image" content="http://gamevui.top/Content/Images/Chickenshit.jpg">
+    <meta property="og:image:width" content="310">
+    <meta property="og:image:height" content="307">
+    <title>@ViewBag.Title - Game Vui</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", false)
+    <link href="~/Content/ace.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=808255835934539&version=v2.3";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="">
+                    <img src="~/Content/Images/s-45.png" />
+                </a>
+                @*@Html.ActionLink("CucCutGa", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Tìm số", "TimSo", "Home")</li>
+                    <li>@Html.ActionLink("Caro", "Caro", "Home")</li>
+                    <li>@Html.ActionLink("Thống kê", "Statistics", "Account")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

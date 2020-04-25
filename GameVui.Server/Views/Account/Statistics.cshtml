@@ -1,0 +1,32 @@
+﻿@model UserStatistics
+@{
+    ViewBag.Title = "Statistics";
+}
+<div class="container">
+    <h2>Thông kê</h2>
+    <div>Tổng số trận: @Model.TotalMatch</div>
+    <div>Thắng: @Model.TotalWin</div>
+    <div>Thua: @Model.TotalLose</div>
+    <div>Huề: @Model.TotalDraw</div>
+    <table class="table table-responsive table-bordered">
+        <thead>
+            <tr>
+                <th>Đối thủ</th>
+                <th>Thắng</th>
+                <th>Thua</th>
+                <th>Huề</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var opppnentInfo in Model.OpponentInfoList)
+            {
+                <tr>
+                    <td>@opppnentInfo.Opponent.DisplayName</td>
+                    <td>@opppnentInfo.Win</td>
+                    <td>@opppnentInfo.Lose</td>
+                    <td>@opppnentInfo.Draw</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

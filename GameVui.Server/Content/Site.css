@@ -1,0 +1,262 @@
+﻿body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+.no-underline
+{
+    text-decoration: none;
+}
+.no-underline:hover
+{
+    text-decoration: none;
+}
+.user-avatar {
+    width: 40px;
+}
+.online{
+    color: #03921c;
+}
+.offline {
+    color: rgba(0,0,0,0.3);
+}
+.scroller
+{
+    overflow: auto;
+}
+.panel-chat {
+    margin-bottom: 0px!important;
+}
+input.findGame {
+    clear: both;
+}
+
+.clear {
+    clear: both;
+}
+
+.game-container{
+    margin-bottom: 60px;
+}
+span.box {
+    display: block;
+    border: 2px solid gray;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    float: left;
+    margin: 2px;
+    font-size: 18px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+}
+#currentNumber {
+    font-size: 50px;
+    /*width: 100%;
+    margin: 0 0;*/
+    text-align: center;
+}
+
+
+
+@media(min-width: 768px)
+{
+     span.box {
+        height: 45px;
+        width: 45px;
+        margin: 4px;
+        font-size: 24px;
+        line-height: 45px;
+    }
+    #currentNumber
+    {
+        font-size: 50px;
+    }
+    .game-container
+    {
+        margin-bottom: 60px;
+    }
+    .left-column {
+        position: fixed; left: 2px; bottom: 0px;
+    }
+}
+
+@media(min-width: 1024px)
+{
+     span.box {
+        height: 55px;
+        width: 55px;
+        margin: 5px;
+        font-size: 26px;
+        line-height: 55px;
+    }
+    #currentNumber
+    {
+        font-size: 60px;
+    }
+    .game-container
+    {
+        margin-bottom: 70px;
+    }
+}
+    
+@media (min-width: 1280px) 
+{
+    span.box {
+        height: 65px;
+        width: 65px;
+        margin: 5px;
+        font-size: 28px;
+        line-height: 65px;
+    }
+    #currentNumber
+    {
+        font-size: 70px;
+    }
+    .game-container
+    {
+        margin-bottom: 80px;
+    }
+}
+
+@media (min-width: 1360px) 
+{
+    span.box {
+        height: 75px;
+        width: 75px;
+        margin: 5px;
+        font-size: 30px;
+        line-height: 75px;
+    }
+    #currentNumber
+    {
+        font-size: 80px;
+    }
+    .game-container
+    {
+        margin-bottom: 90px;
+    }
+}
+
+span.box_caro
+{
+    width: 5%;
+    display: block;
+    border: 2px solid gray;
+    float:left;
+}
+
+span.box_caro:before{
+	content: "";
+	display: block;
+	padding-top: 100%; 	/* initial ratio of 1:1*/
+}
+.blink {
+   animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+	0% {background-color: lightgray}
+	50% {background-color: white}
+}
+
+div.information {
+    clear: both;
+}
+div#serverInformation {
+    clear: both;
+    margin-top: 30px;
+    font-style: italic;
+}
+span#gameInformation {
+    font-weight: bold;
+    font-size: 120%;
+}
+span.mark1 {
+    background-color: #d50000;
+    /*background: url('/Content/Images/TicTacToeX.png') center center no-repeat;*/
+    background-size: cover;
+}
+
+span.mark2 {
+    background-color: #0748c8;
+    /*background: url('/Content/Images/TicTacToeO.png') center center no-repeat;*/
+    background-size: cover;
+}
+
+span.mark_caro1 
+{
+    /*background-color: #d50000;*/
+    background: url('/Content/Images/X.png') center center no-repeat;
+    background-size: cover;
+}
+
+span.mark_caro2 
+{
+    /*background-color: #0748c8;*/
+    background: url('/Content/Images/O.png') center center no-repeat;
+    background-size: cover;
+}
+
+div#game {
+    margin-bottom: 10px;
+}
+span.box:before {
+    content: attr(data-content);
+}
+
+#chat-windows{
+    position: fixed;
+    right: 26%;
+    bottom: 0px;
+    z-index: 9999;
+}
+.chat-container
+{
+    width: 250px;
+    float: right;
+    margin-left: 3px;
+}
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 60px;
+}
+
+.chat li.right .chat-body
+{
+    margin-right: 60px;
+}
+
+
+.chat li .chat-body p
+{
+    margin: 0;
+    color: #777777;
+}
+.chat-img {
+    width: 50px;
+}
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 250px;
+}
+

@@ -1,0 +1,22 @@
+﻿@model List<GameVui.Server.Models.GroupMessage>
+@foreach (var message in Model)
+{
+<div class="itemdiv dialogdiv">
+    <div class="user">
+        <img alt="" src="@message.Sender.Avatar">
+    </div>
+
+    <div class="body">
+        <div class="time">
+            <i class="ace-icon fa fa-clock-o"></i>
+            <span class="green"></span>
+        </div>
+
+        <div class="name">
+            <a href="#">@message.Sender.DisplayName</a>
+        </div>
+        <div class="text">@message.MessageContent</div>
+
+    </div>
+</div>
+}

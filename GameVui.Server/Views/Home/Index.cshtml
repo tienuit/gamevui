@@ -1,0 +1,182 @@
+﻿@using Microsoft.AspNet.Identity;
+
+@model HomeView
+@{
+    ViewBag.Title = "Trang chủ";
+}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-sm-3 col-xs-12 left-column">
+            <div class="row">
+                <div class="modal-content" id="chat-group">
+                    <div class="modal-header no-padding">
+                        <div class="table-header">
+                            Chat Nhóm
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row scroller">
+                            @Html.Action("Get20GroupLast", "Message")
+                            <ul class="list-unstyled chat-messages"></ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input class="form-control" type="text" id="group-chat-input" placeholder="Gửi tin nhắn" />
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div>
+        <div class="col-sm-3 col-xs-12"></div>
+        <div class="col-sm-6 col-xs-12">
+            <div class="fb-like" data-href="https://www.facebook.com/cuccut.ga" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+            <div class="row text-center">
+                <a href="/Home/TimSo" class="btn btn-danger text-center btn-lg">Tìm số</a>
+                <a href="/Home/Caro" class="btn btn-danger text-center btn-lg">Caro</a>
+            </div>
+
+            <div class="jumbotron">
+                <h2>Bảng xếp hạng</h2>
+                <table id="ranking" class="table table-responsive table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tài khoản</th>
+                            <th>Điểm</th>
+                            <th>Thắng</th>
+                            <th>Thua</th>
+                            <th>Hòa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var user in Model.OrderedUsers)
+                            {
+                        <tr>
+                            <td>@user.DisplayName</td>
+                            <td>@user.Point đ</td>
+                            <td>@user.TotalWin</td>
+                            <td>@user.TotalLose</td>
+                            <td>@user.TotalDraw</td>
+                        </tr>
+                            }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                @if (Model.Best100 != null)
+                {
+                    <p class="alert alert-danger">
+                        Kỷ lục trận đấu 100 nhanh nhất: @Model.Best100.Player1.DisplayName - @Model.Best100.Player2.DisplayName: @Model.Best100.Player1Achievement:@Model.Best100.Player2Achievement (@((Model.Best100.GameEnd.Value - Model.Best100.GameBegin).ToString(@"dd\.hh\:mm\:ss")))
+                    </p>
+                }
+                @if (Model.Best50 != null)
+                {
+                    <p class="alert alert-danger">
+                        Kỷ lục trận đấu 50 nhanh nhất: @Model.Best50.Player1.DisplayName - @Model.Best50.Player2.DisplayName: @Model.Best50.Player1Achievement:@Model.Best50.Player2Achievement (@((Model.Best50.GameEnd.Value - Model.Best50.GameBegin).ToString(@"dd\.hh\:mm\:ss")) )
+                    </p>
+                }
+            </div>
+
+        </div>
+        <div class="col-sm-3 hidden-xs" style="position: fixed; right: 2px; bottom: 0px;">
+            <div class="row">
+                <div class="modal-content" id="chat-list">
+                    <div class="modal-header no-padding">
+                        <div class="table-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                <span class="white">&times;</span>
+                            </button>
+                            Chat
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row scroller">
+                            <table class="table table-hover">
+                                <tbody>
+                                    @foreach (var chatClient in Model.ChatClients)
+                                    {
+                                        <tr class="chat-user-item" data-userid="@chatClient.UserId" data-displayname="@chatClient.DisplayName">
+                                            <td>
+                                                <a href="#" class="no-underline">
+                                                    <img src="@(string.IsNullOrEmpty(chatClient.Avatar)? "/content/images/user.png": chatClient.Avatar)" alt="contact" class="img-circle user-avatar">
+                                                    @*<span class="fa fa-2x fa-user"></span>*@
+                                                    <span>@chatClient.DisplayName</span>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-circle offline pull-right"></i>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input class="form-control" type="text" id="chat-filter" placeholder="Tìm người" />
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div>
+    </div>
+
+
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Game Studio</p>
+    </footer>
+    </div>
+
+<div id="chat-windows">
+</div>
+
+
+
+@section scripts
+{
+        <script src="~/Scripts/ace-elements.min.js"></script>
+        <script src="~/Scripts/ace.min.js"></script>
+        <script src="~/Scripts/jquery.chatwindow.js"></script>
+        <script src="~/Scripts/jquery.signalR-2.2.0.js"></script>
+        <script src="/signalr/hubs" type="text/javascript"></script>
+        <script src="~/Scripts/signalR.chat.js"></script>
+        <script>
+
+            function resizeScrollContent() {
+                $("#chat-list .scroller").height((window.innerHeight - 200) + "px");
+                $("#chat-group .scroller").height((window.innerHeight - 200) + "px");
+            }
+            function filterChatList(name) {
+                if (name === null || name.match(/^ *$/) !== null) {
+                    $('.chat-user-item').removeClass("hidden");
+                }
+                else {
+                    $('.chat-user-item').each(function (index) {
+                        if ($(this).data('displayname').toString().toLowerCase().indexOf(name.toLowerCase()) < 0)
+                            $(this).addClass("hidden");
+                        else
+                            $(this).removeClass("hidden");
+                    });
+                }
+            }
+            resizeScrollContent();
+            jQuery(function ($) {
+                var userAuthorized = '@(User.Identity.IsAuthenticated.ToString().ToLower())';
+
+                if (userAuthorized) {
+                    var chat = new Chat('@(User.Identity.GetUserId())');
+                };
+
+                $(window).resize(function () {
+                    resizeScrollContent();
+                });
+                $("#chat-filter").keyup(function () {
+                    filterChatList($("#chat-filter").val());
+
+                });
+            })
+        </script>
+    }

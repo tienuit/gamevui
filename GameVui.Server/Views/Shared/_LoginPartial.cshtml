@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    var user = new GameVui.Server.Models.ApplicationDbContext().Users.Find(User.Identity.GetUserId());
+}
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="@Url.Action("Manage", "Account", routeValues: null)">@user.DisplayName <span class="badge">@(user.Point)</span></a> 
+            
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Đăng xuất</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Đăng ký", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

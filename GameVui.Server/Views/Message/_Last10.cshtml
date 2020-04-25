@@ -1,0 +1,43 @@
+﻿@model List<GameVui.Server.Models.Message>
+@{
+    string myId = ViewBag.MyId;
+}
+
+@foreach (var message in Model)
+{
+    if (message.SenderId == myId)
+    {
+        <li class="right clearfix">
+            <span class="chat-img pull-right">
+                <img src="@message.Sender.Avatar" alt="User Avatar" class="img-responsive img-circle">
+            </span>
+            <div class="chat-body clearfix">
+                <div class="header">
+                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>time</small>
+                    <strong class="pull-right primary-font">@message.Sender.DisplayName</strong>
+                </div>
+                <p>
+                    @message.MessageContent
+                </p>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="left clearfix">
+            <span class="chat-img pull-left">
+                <img src="@message.Sender.Avatar" alt="User Avatar" class="img-responsive img-circle">
+            </span>
+            <div class="chat-body clearfix">
+                <div class="header">
+                    <strong class="primary-font">@message.Sender.DisplayName</strong> <small class="pull-right text-muted">
+                        <span class="glyphicon glyphicon-time"></span>time
+                    </small>
+                </div>
+                <p>
+                    @message.MessageContent
+                </p>
+            </div>
+        </li>
+    }
+}
