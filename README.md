@@ -1,5 +1,6 @@
 # gamevui
-An example for using SignalR to write a simple game.
+An example for using SignalR to write a simple online game.
+Demo: https://gamevui.top
 
 This source code was written from 2015, using .Net Framework 
 
